@@ -1,0 +1,42 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production builds
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE settings (optional - some prefer to keep .vscode/)
+# .vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Testing
+coverage/
+.nyc_output/
+
+# Docker volumes (data persistence)
+postgres_data/
+redis_data/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
