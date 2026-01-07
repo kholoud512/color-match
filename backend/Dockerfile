@@ -1,10 +1,5 @@
 # Backend Dockerfile – Node.js + Express API
-# Lightweight image using Node 18 Alpine.
-# Steps:
-# - Set working directory
-# - Install dependencies using cached layers
-# - Copy app files
-# - Expose port 5000
+
 # - Start server
 FROM node:18-alpine
 
