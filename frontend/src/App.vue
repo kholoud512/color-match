@@ -69,14 +69,14 @@
         <!-- Header -->
         <div class="card flex justify-between items-center px-3 py-2">
           <div class="flex items-center gap-2">
-            <span class="text-2xl">{{ selectedAvatar }}</span>
+            <span class="text-xl">{{ selectedAvatar }}</span>
             <div>
-              <p class="font-bold text-xs">{{ playerName }}</p>
+              <p class="font-bold text-lg">{{ playerName }}</p>
               <p class="text-xl text-gray-500">Round {{ round }}</p>
             </div>
           </div>
           <div class="text-right">
-            <p class="text-gray-500 text-xs">Score</p>
+            <p class="text-gray-500 text-lg">Score</p>
             <p class="text-xl font-black text-purple-600">{{ score }}</p>
           </div>
         </div>
