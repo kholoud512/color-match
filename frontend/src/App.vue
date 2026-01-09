@@ -1,14 +1,14 @@
 <template>
   <div class="min-h-screen flex items-center justify-center p-4">
-    <div class="max-w-4xl w-full">
+    <div class="max-w-3xl w-full">
       
       <!-- Welcome screen -->
       <div v-if="gameState === 'welcome'" class="card animate-fade-in">
         <div class="text-center">
-          <h1 class="text-6xl font-black mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h1 class="text-4xl font-black mb-3 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             Color Match Challenge
           </h1>
-          <p class="text-xl text-gray-600 mb-8">
+          <p class="text-lg text-gray-600 mb-4">
             Test your memory with color sequences! 
           </p>
           
@@ -18,20 +18,20 @@
             @keyup.enter="startGame"
             type="text"
             placeholder="Enter your name..."
-            class="w-full px-6 py-4 text-xl border-4 border-purple-300 rounded-xl mb-6 focus:outline-none focus:border-purple-500 transition-colors"
+            class="w-full px-4 py-3 text-lg border-4 border-purple-300 rounded-xl mb-4 focus:outline-none focus:border-purple-500 transition-colors"
             maxlength="20"
           />
           
           <!-- Avatar Selector -->
           <div class="mb-8">
-            <p class="text-sm text-gray-500 mb-3">Choose your avatar:</p>
+            <p class="text-xs text-gray-500 mb-2">Choose your avatar:</p>
             <div class="flex justify-center gap-2 flex-wrap">
               <button
                 v-for="avatar in avatars"
                 :key="avatar"
                 @click="selectedAvatar = avatar"
                 :class="[
-                  'text-4xl p-2 rounded-lg transition-all',
+                  'text-3xl p-2 rounded-lg transition-all',
                   selectedAvatar === avatar
                     ? 'bg-purple-100 scale-125 shadow-lg'
                     : 'hover:bg-gray-100 hover:scale-110'
@@ -46,48 +46,48 @@
           <button
             @click="startGame"
             :disabled="!playerName.trim() || playerName.length < 2"
-            class="btn-primary text-xl px-8 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+            class="btn-primary text-lg px-6 py-3 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Start Playing
           </button>
           
           <!-- Instructions -->
-          <div class="mt-8 p-6 bg-purple-50 rounded-xl text-left">
-            <h3 class="font-bold text-lg mb-3 text-purple-600">📋 How to Play</h3>
-            <ol class="space-y-2 text-gray-700">
+          <div class="mt-4 p-4 bg-purple-50 rounded-xl text-left">
+            <h3 class="font-bold mb-2 text-purple-600">How to Play</h3>
+            <ol class="space-y-1 text-gray-700">
               <li>1️⃣ Watch the color sequence carefully</li>
               <li>2️⃣ Click the colors in the same order</li>
               <li>3️⃣ Each round adds one more color</li>
-              <li>4️⃣ How far can you go? 🏆</li>
+              <li>4️⃣ How far can you go? </li>
             </ol>
           </div>
         </div>
       </div>
       
       <!-- Game screen -->
-      <div v-if="gameState === 'watching' || gameState === 'playing'" class="space-y-6">
+      <div v-if="gameState === 'watching' || gameState === 'playing'" class="space-y-2">
         <!-- Header -->
-        <div class="card flex justify-between items-center">
-          <div class="flex items-center gap-4">
-            <span class="text-5xl">{{ selectedAvatar }}</span>
+        <div class="card flex justify-between items-center px-3 py-2">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">{{ selectedAvatar }}</span>
             <div>
-              <p class="font-bold text-2xl">{{ playerName }}</p>
-              <p class="text-gray-500">Round {{ round }}</p>
+              <p class="font-bold text-lg">{{ playerName }}</p>
+              <p class="text-xl text-gray-500">Round {{ round }}</p>
             </div>
           </div>
           <div class="text-right">
-            <p class="text-gray-500 text-sm">Score</p>
-            <p class="text-4xl font-black text-purple-600">{{ score }}</p>
+            <p class="text-gray-500 text-lg">Score</p>
+            <p class="text-xl font-black text-purple-600">{{ score }}</p>
           </div>
         </div>
         
         <!-- Status -->
-        <div class="card text-center">
-          <p v-if="gameState === 'watching'" class="text-2xl font-bold text-orange-500">
-            👀 Watch the sequence...
+        <div class="card text-center py-2">
+          <p v-if="gameState === 'watching'" class="text-lg font-bold text-orange-500">
+             Watch the sequence 👀
           </p>
           <div v-if="gameState === 'playing'">
-            <p class="text-2xl font-bold text-green-500 mb-2">
+            <p class="text-lg font-bold text-green-500">
               Your turn!
             </p>
             <p class="text-gray-500">
@@ -96,15 +96,15 @@
           </div>
         </div>
         
-        <!-- Color Grid -->
-        <div class="grid grid-cols-3 gap-4">
+        <!-- Color Grid - Compact -->
+        <div class="grid grid-cols-3 gap-2">
           <button
             v-for="color in colors"
             :key="color.name"
             @click="handleColorClick(color)"
             :disabled="gameState !== 'playing'"
             :class="[
-              'color-button',
+              'w-full aspect-square rounded-lg flex items-center justify-center text-4xl cursor-pointer transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg',
               color.bg,
               activeColor === color.name ? `${color.shadow} scale-110` : '',
               gameState !== 'playing' ? 'opacity-70 cursor-not-allowed' : ''
@@ -117,38 +117,38 @@
       
       <!-- Game Over Screen -->
       <div v-if="gameState === 'gameover'" class="card text-center animate-fade-in">
-        <h2 class="text-5xl font-black mb-6 text-purple-600">
+        <h2 class="text-2xl font-black mb-4 text-purple-600">
           {{ playerRank <= 3 ? '🏆 Amazing!' : 'Game Over!' }}
         </h2>
         
         <!-- Score Circle -->
-        <div class="mb-8 flex justify-center">
-          <div class="w-48 h-48 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex flex-col items-center justify-center text-white shadow-2xl">
-            <p class="text-6xl font-black">{{ score }}</p>
-            <p class="text-sm uppercase tracking-wider">Final Score</p>
+        <div class="mb-4 flex justify-center">
+          <div class="w-32 h-32 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex flex-col items-center justify-center text-white shadow-2xl">
+            <p class="text-5xl font-black">{{ score }}</p>
+            <p class="text-xs uppercase tracking-wider">Final Score</p>
           </div>
         </div>
         
         <!-- Stats -->
-        <div class="flex justify-center gap-8 mb-8">
+        <div class="flex justify-center gap-6 mb-4">
           <div>
-            <p class="text-4xl mb-1">🎯</p>
-            <p class="text-3xl font-bold text-purple-600">{{ round - 1 }}</p>
-            <p class="text-gray-500 text-sm">Rounds</p>
+            <p class="text-3xl mb-1">🎯</p>
+            <p class="text-2xl font-bold text-purple-600">{{ round - 1 }}</p>
+            <p class="text-gray-500 text-xs">Rounds</p>
           </div>
           <div>
-            <p class="text-4xl mb-1">🏅</p>
-            <p class="text-3xl font-bold text-purple-600">#{{ playerRank || '?' }}</p>
-            <p class="text-gray-500 text-sm">Rank</p>
+            <p class="text-3xl mb-1">🏅</p>
+            <p class="text-2xl font-bold text-purple-600">#{{ playerRank || '?' }}</p>
+            <p class="text-gray-500 text-xs">Rank</p>
           </div>
         </div>
         
         <!-- Buttons -->
         <div class="flex gap-4 justify-center">
           <button @click="playAgain" class="btn-primary">
-            🔄 Play Again
+           Play Again
           </button>
-          <button @click="showLeaderboard" class="btn-primary bg-purple-600 text-white hover:bg-purple-700">
+          <button @click="showLeaderboard" class="btn-primary bg-purple-600 text-white hover:bg-purple-700 text-sm px-4 py-2">
             Leaderboard
           </button>
         </div>
@@ -156,61 +156,61 @@
       
       <!-- Leaderboard Screen -->
       <div v-if="gameState === 'leaderboard'" class="card animate-fade-in">
-        <h2 class="text-4xl font-black text-center mb-6 text-purple-600">
-          🏆 Global Leaderboard
+        <h2 class="text-3xl font-black text-center mb-4 text-purple-600">
+          Global Leaderboard
         </h2>
         
         <!-- Stats Bar -->
-        <div class="grid grid-cols-3 gap-4 mb-8">
-          <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-4 text-white text-center">
-            <p class="text-3xl font-bold">{{ stats.totalGames || 0 }}</p>
-            <p class="text-sm opacity-90">Total Games</p>
+        <div class="grid grid-cols-3 gap-2 mb-4">
+          <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg p-2 text-white text-center">
+            <p class="text-2xl font-bold">{{ stats.totalGames || 0 }}</p>
+            <p class="text-xs opacity-90">Total Games</p>
           </div>
-          <div class="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl p-4 text-white text-center">
-            <p class="text-3xl font-bold">{{ stats.uniquePlayers || 0 }}</p>
-            <p class="text-sm opacity-90">Players</p>
+          <div class="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg p-2 text-white text-center">
+            <p class="text-2xl font-bold">{{ stats.uniquePlayers || 0 }}</p>
+            <p class="text-xs opacity-90">Players</p>
           </div>
-          <div class="bg-gradient-to-br from-orange-500 to-red-500 rounded-xl p-4 text-white text-center">
-            <p class="text-3xl font-bold">{{ stats.bestScore || 0 }}</p>
-            <p class="text-sm opacity-90">Best Score</p>
+          <div class="bg-gradient-to-br from-orange-500 to-red-500 rounded-lg p-2 text-white text-center">
+            <p class="text-2xl font-bold">{{ stats.bestScore || 0 }}</p>
+            <p class="text-xs opacity-90">Best Score</p>
           </div>
         </div>
         
         <!-- Leaderboard List -->
-        <div class="space-y-3 mb-6 max-h-96 overflow-y-auto">
+        <div class="space-y-2 mb-4 max-h-64 overflow-y-auto">
           <div
             v-for="(entry, index) in leaderboard"
             :key="entry.id"
             :class="[
-              'flex items-center justify-between p-4 rounded-xl transition-all',
+              'flex items-center justify-between p-2 rounded-lg transition-all',
               entry.name === playerName
                 ? 'bg-purple-100 border-2 border-purple-500'
                 : 'bg-gray-50 hover:bg-gray-100'
             ]"
           >
-            <div class="flex items-center gap-4">
-              <span class="text-2xl w-8 text-center">
+            <div class="flex items-center gap-2">
+              <span class="text-lg w-6 text-center">
                 <template v-if="index === 0">🥇</template>
                 <template v-else-if="index === 1">🥈</template>
                 <template v-else-if="index === 2">🥉</template>
                 <template v-else>#{{ index + 1 }}</template>
               </span>
-              <span class="text-3xl">{{ entry.avatar }}</span>
+              <span class="text-2xl">{{ entry.avatar }}</span>
               <div>
-                <p class="font-bold text-lg">{{ entry.name }}</p>
+                <p class="font-bold text-sm">{{ entry.name }}</p>
                 <p class="text-sm text-gray-500">
                   {{ new Date(entry.date).toLocaleDateString() }}
                 </p>
               </div>
             </div>
-            <p class="text-3xl font-black text-purple-600">
+            <p class="text-2xl font-black text-purple-600">
               {{ entry.score }}
             </p>
           </div>
         </div>
         
         <!-- Back Button -->
-        <button @click="backToWelcome" class="btn-primary w-full">
+        <button @click="backToWelcome" class="btn-primary w-full text-sm py-2">
           Back to Menu
         </button>
       </div>
